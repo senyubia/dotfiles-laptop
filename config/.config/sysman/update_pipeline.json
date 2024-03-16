@@ -3,6 +3,8 @@
     {"command": "sudo pacman -Sy", "special_env": ""},
     {"command": "sudo pacman -S --noconfirm archlinux-keyring", "special_env": ""},
     {"command": "sudo pacman -Su --noconfirm", "special_env": ""},
+    {"command": "build-yay", "special_env": ""},
     {"command": "yay -Su --noconfirm", "special_env": ""},
-    {"command": "yay -S --answerclean All --rebuildtree --noconfirm qt5-styleplugins qt6gtk2", "special_env": "cache_rebuild"}
+    {"command": "yay -S --answerclean All --rebuildtree --noconfirm qt5-styleplugins qt6gtk2", "special_env": "cache_rebuild"},
+    {"command": "sudo pacman -Qdtq | sudo pacman -Rns --noconfirm -", "special_env": ""}
 ]

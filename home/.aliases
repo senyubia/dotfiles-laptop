@@ -17,6 +17,3 @@ fbv() {
 	/usr/bin/fbv $HOME/pictures/clear.png
 	clear
 }
-
-# packages
-alias remove-orphans='sudo pacman -Qdtq | sudo pacman -Rns -'
