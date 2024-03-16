@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [[ "$EUID" -ne 0 ]]; then
+	echo "Need root privileges"
+	exit 1
+fi
+
+systemctl start sshd.service
+trap "systemctl stop sshd.service; exit 0" SIGINT
+
+sleep 1d

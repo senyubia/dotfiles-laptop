@@ -1,0 +1,69 @@
+#! /bin/bash
+
+# Read theme
+THEME_LOCATION="$HOME/.desktop-theme"
+selected_theme=$(find -L "$THEME_LOCATION" -name "*.theme" -printf "%f\n" \
+  | sed 's/\.theme//' \
+  | rofi -no-fixed-num-lines -theme ~/.config/rofi/minimenu.rasi -dmenu -p "Select theme to apply")
+
+if [[ "$selected_theme" == "" ]]; then
+  exit 0
+fi
+
+source "$THEME_LOCATION/$selected_theme.theme"
+
+# Define theme file locations
+GTK2_FILE_LOCATION="$HOME/.gtkrc-2.0"
+GTK3_FILE_LOCATION="$HOME/.config/gtk-3.0/settings.ini"
+QT_FILE_LOCATION="$HOME/.config/qt5ct/qt5ct.conf"
+ALACRITTY_FILE_LOCATION="$HOME/.config/alacritty/alacritty.yml"
+ROFI_LOCATION="$HOME/.config/rofi"
+POLYBAR_FILE_LOCATION="$HOME/scripts/launch-polybar.sh"
+BG_SAVED_LOCATION="$HOME/.config/nitrogen/bg-saved.cfg"
+
+# 1) Change GTK2 theme
+sed -e "s/gtk-theme-name=.*/gtk-theme-name=\"$GTK_THEME_NAME\"/" \
+    -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=\"$GTK_ICON_THEME_NAME\"/" \
+    -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=\"$GTK_CURSOR_THEME_NAME\"/" \
+    -e "s/gtk-font-name=.*/gtk-font-name=\"$GTK_FONT_NAME\"/" \
+    -i --follow-symlinks $GTK2_FILE_LOCATION
+
+# 2) Change GTK3 theme
+sed -e "s/gtk-theme-name=.*/gtk-theme-name=$GTK_THEME_NAME/" \
+    -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=$GTK_ICON_THEME_NAME/" \
+    -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=$GTK_CURSOR_THEME_NAME/" \
+    -e "s/gtk-font-name=.*/gtk-font-name=$GTK_FONT_NAME/" \
+    -i $GTK3_FILE_LOCATION
+
+# 3) Change QT theme
+qt_fixed_escaped=$(sed -e 's/[&\\/]/\\&/g; s/$/\\/' -e '$s/\\$//' <<<"$QT_FIXED")
+qt_general_escaped=$(sed -e 's/[&\\/]/\\&/g; s/$/\\/' -e '$s/\\$//' <<<"$QT_GENERAL")
+
+sed -e "s:color_scheme_path=.*:color_scheme_path=$QT_COLOR_SCHEME_PATH:" \
+    -e "s/icon_theme=.*/icon_theme=$QT_ICON_THEME/" \
+    -e "s/fixed=.*/fixed=$qt_fixed_escaped/" \
+    -e "s/general=.*/general=$qt_general_escaped/" \
+    -i $QT_FILE_LOCATION
+
+# 4) Change Alacritty theme
+sed -e "s:- ~/\.config/alacritty/.*:- ~/.config/alacritty/$ALACRITTY_THEME:" \
+    -i $ALACRITTY_FILE_LOCATION
+
+# 5) Change Rofi theme
+sed -e "s:@import \".*\/:@import \"$ROFI_THEME\/:" \
+    -i "$ROFI_LOCATION/config.rasi"
+
+# 6) Change Polybar
+sed -e "s/style=.*/style=\"$POLYBAR_STYLE\"/" \
+    -i $POLYBAR_FILE_LOCATION
+
+$HOME/scripts/launch-polybar.sh &> /dev/null &
+
+# 7) Change wallpaper and lockscreen
+sed -e "s:file=.*:file=$WALLPAPER_FILE:" \
+    -e "s/mode=.*/mode=$WALLPAPER_MODE/" \
+    -e "s/bgcolor=.*/bgcolor=$WALLPAPER_BGCOLOR/" \
+    -i $BG_SAVED_LOCATION
+
+nitrogen --restore &> /dev/null &
+betterlockscreen -u $WALLPAPER_FILE &> /dev/null &

@@ -1,0 +1,67 @@
+#! /usr/bin/python3
+
+import sys
+import threading
+import time
+import yt_dlp
+
+
+def dl(to_dl, count):
+    def download_vid(opts, to_dl):
+      with yt_dlp.YoutubeDL(opts) as ydl:
+        ydl.download([to_dl])
+
+    opts = {
+      'outtmpl': f'ep-{count:02d}.%(ext)s',
+      'fragment-retries': 'infinite'
+    }
+
+    tries = 0
+    while tries < 3:
+      try:
+        download_vid(opts, to_dl)
+        tries = 1000
+      except:
+        tries += 1
+
+    global lock
+    global curr
+
+    lock.acquire()
+    curr -= 1
+    lock.release()
+
+
+filename = sys.argv[1]
+threads_n = int(sys.argv[2])
+
+with open(filename) as f:
+    links = [ line.rstrip('\n') for line in f ]
+
+curr = 0
+lock = threading.Lock()
+threads = []
+
+for count, link in enumerate(links, 1):
+    while(True):
+        lock.acquire()
+        check = curr == threads_n
+        lock.release()
+
+        if check:
+            time.sleep(20)
+        else:
+            break
+
+    lock.acquire()
+    thr = threading.Thread(target=dl, args=(link, count))
+    thr.start()
+    threads.append(thr)
+    curr += 1
+    lock.release()
+
+    time.sleep(5)
+
+
+for thr in threads:
+    thr.join()

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cur_date=$(date +"%H:%M, %a, %d %b %Y")
+echo "DATE: $cur_date"
+
+bat_status=$(acpi -b)
+echo "BATTERY:${bat_status#*:}"
+
+pacman_updates=$(checkupdates 2> /dev/null | wc -l)
+echo "PACMAN UPDATES: $pacman_updates"

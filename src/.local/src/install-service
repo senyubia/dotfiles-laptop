@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+service_path=$1
+service_file=${1##*\/}
+
+if [[ ! -z $2  ]]; then
+	service_script_path=$2
+	service_script_file=${2##*\/}
+fi
+
+systemctl list-unit-files $service_file &>/dev/null &&
+sudo systemctl disable --now $service_file
+
+[[ -f /etc/systemd/system/$service_file  ]] &&
+sudo rm /etc/systemd/system/$service_file
+
+[[ ! -z $2 ]] &&
+[[ -f /usr/bin/$service_script_file ]] &&
+sudo rm /usr/bin/$service_script_file
+
+sudo cp $service_path /etc/systemd/system/$service_file
+[[ ! -z $2 ]] && sudo cp $service_script_path /usr/bin/$service_script_file
+
+if [[ $service_file != *@* ]]; then
+	sudo systemctl enable --now $service_file
+else
+	echo
+	echo "Service $service_file is indirect, enable it manually"
+fi

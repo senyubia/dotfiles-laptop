@@ -1,0 +1,22 @@
+# Colors
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# ls
+alias ll='ls -lh'
+alias la='ls -a'
+alias lla='ls -lha'
+
+# feh
+alias feh='feh -.'
+
+# fbv
+fbv() {
+	/usr/bin/fbv $1
+	((sleep 0.1; kill -9 $(pgrep fbv)) &)
+	/usr/bin/fbv $HOME/pictures/clear.png
+	clear
+}
+
+# packages
+alias remove-orphans='sudo pacman -Qdtq | sudo pacman -Rns -'

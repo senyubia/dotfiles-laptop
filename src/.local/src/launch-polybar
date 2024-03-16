@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+dir="$HOME/.config/polybar"
+style="dracula"
+
+# terminate polybar
+killall -q polybar
+
+# wait until processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+# launch the bar
+polybar -q top -c "$dir/$style/config.ini" &
+
+TRAY_ID="/tmp/polybar-tray-id"
+
+polybar -q tray -c "$dir/$style/config.ini" &
+echo $! > $TRAY_ID
+(xdo id -m -N Polybar && polybar-msg -p $! cmd hide) &

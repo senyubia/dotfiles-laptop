@@ -1,0 +1,16 @@
+@import "config.rasi"
+
+* {
+    text-color: @foreground;
+    background-color: @background;
+}
+
+#element-text {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+#window {
+    y-offset: -48px;
+    width: 250px;
+}

@@ -1,0 +1,161 @@
+#! /usr/bin/python3
+
+# band;album;year;album_link;cover_link
+# if no album, insert -
+# if no year, insert -
+# if no cover_link, insert -
+import os
+import sys
+import pathlib
+import subprocess
+import shutil
+from dataclasses import dataclass
+
+import mutagen
+import mutagen.id3 as id3
+
+
+OUT_DIR = 'downloaded'
+NO_ALBUM_DIR = 'Single'
+
+
+def id_gen():
+    id = 0
+    while True:
+        yield str(id)
+        id += 1
+
+id = id_gen()
+
+
+@dataclass
+class DownloadedMusic:
+    artist: str
+    album: str
+    has_album: bool
+    year: str
+    has_year: bool
+    location: pathlib.Path
+    has_cover: bool
+
+    def tag(self) -> None:
+        print(self.location)
+
+        songs = [ song for song in self.location.glob('*.mp3') ]
+
+        all_tracks = len(songs)
+
+        for id, song in enumerate(songs, 1):
+            print(song)
+
+            song_title = song.name[4:-4]
+
+            try:
+                song_track_number = f'{int(song.name[0:2])}'
+            except ValueError:
+                song_track_number = id if self.has_album else None
+                song = song.rename(str(song).replace(song.stem, song_title))
+
+            song_file = mutagen.File(song)
+
+            song_file.tags.add(id3.TPE1(text=[self.artist]))
+            song_file.tags.add(id3.TIT2(text=[song_title]))
+
+            if self.has_album:
+                song_file.tags.add(id3.TRCK(text=[f'{song_track_number}/{all_tracks}']))
+                song_file.tags.add(id3.TALB(text=[self.album]))
+
+            if self.has_year:
+                song_file.tags.add(id3.TDRC(text=[self.year]))
+
+            if self.has_cover:
+                with open(f'{self.location}/cover.jpg', 'rb') as cover:
+                    song_file.tags.add(id3.APIC(encoding=3, mime='image/jpeg', type=3, desc='Front cover', data=cover.read()))
+
+            song_file.save(v2_version=3)
+
+        if self.has_cover:
+            os.remove(f'{self.location}/cover.jpg')
+
+        if not self.has_album:
+            dst_folder = str(self.location).replace(self.location.stem, NO_ALBUM_DIR)
+
+            if not pathlib.Path(dst_folder).is_dir():
+                self.location.rename(dst_folder)
+            else:
+                shutil.copytree(self.location, dst_folder, dirs_exist_ok=True)
+                shutil.rmtree(self.location)
+
+
+class MusicLink:
+    def __init__(self, music_line: str) -> None:
+        source, album, year, link, cover_link = music_line.split(';')
+
+        self.source = source
+        self.link = link
+
+        if album != '-':
+            self.album = album
+            self.has_album = True
+        else:
+            self.album = next(id)
+            self.has_album = False
+
+        if year != '-':
+            self.year = year
+            self.has_year = True
+        else:
+            self.year = None
+            self.has_year = False
+
+        if cover_link != '-':
+            self.cover_link = cover_link
+            self.has_cover = True
+        else:
+            self.cover_link = None
+            self.has_cover = False
+
+    def download(self) -> DownloadedMusic:
+        save_directory = f'{OUT_DIR}/{self.source}/{self.album}'
+        if self.has_year:
+            save_directory = f'{save_directory} ({self.year})'
+
+        save_path = pathlib.Path(save_directory)
+
+        save_path.mkdir(parents=True, exist_ok=True)
+
+        subprocess.call(
+            ['yt-dlp', '-ciw', '--format', 'bestaudio', '--extract-audio', '--audio-format', 'mp3', '--sleep-interval', '5', '--output', f'{save_directory}/%(playlist_index)02d. %(title)s.%(ext)s', self.link]
+        )
+
+        if self.has_cover:
+            subprocess.call(
+                ['curl', self.cover_link, '--output', f'{save_directory}/cover.jpg']
+            )
+
+        return DownloadedMusic(self.source, self.album, self.has_album, self.year, self.has_year, save_path, self.has_cover)
+
+
+if __name__=='__main__':
+    if len(sys.argv) < 2:
+        print('Pass text file as an argument, check top of the script to see the syntax')
+        exit(1)
+
+    file_loc = sys.argv[1]
+
+    if len(sys.argv) >= 3:
+        OUT_DIR = sys.argv[2]
+
+    if len(sys.argv) >= 4:
+        NO_ALBUM_DIR = sys.argv[3]
+
+    with open(file_loc, 'r') as file:
+        albums = [ MusicLink(line.rstrip()) for line in file.readlines() ]
+
+    downloaded_albums = [ album.download() for album in albums ]
+
+    for album in downloaded_albums:
+        try:
+            album.tag()
+        except Exception as e:
+            print(e)

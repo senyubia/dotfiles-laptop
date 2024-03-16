@@ -1,0 +1,22 @@
+#!/bin/bash
+
+msgId="623720341"
+
+op="$(echo $3 | grep -Po '(\+|-)')"
+volnow="$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '([0-9]+)%' | head -1 | sed 's/.$//')"
+
+if [ "$volnow" -lt 100 ] || [ "$op" = "-" ]; then
+  pactl "$@" > /dev/null
+fi
+
+volnew="$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '([0-9]+)%' | head -1 | sed 's/.$//')"
+ismute="$(pactl get-sink-mute @DEFAULT_SINK@ | grep -Po '(yes|no)')"
+
+if [ "$ismute" = "yes" ]; then
+  desc="$volnew% (muted)"
+else
+  desc="$volnew%"
+fi
+
+dunstify -a "changeVolume" -u low -r "$msgId" \
+	-h int:value:"$volnew" "Volume: $desc"

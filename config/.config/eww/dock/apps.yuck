@@ -1,0 +1,12 @@
+(defwidget apps []
+(box :class "dock"
+(box :class "appbox"
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/firefox.png');" :onclick "scripts/open-apps 'firefox' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/pcmanfm.png');" :onclick "scripts/open-apps 'pcmanfm ~' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/code.svg');" :onclick "scripts/open-apps 'code' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/virtualbox.png');" :onclick "scripts/open-apps 'virtualbox' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/discord.svg');" :onclick "scripts/open-apps 'discord' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/lutris.png');" :onclick "scripts/open-apps 'lutris' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/steam.png');" :onclick "scripts/open-apps 'steam' >/dev/null")
+(button :class "app" :style "background-image: url('/home/sen/.config/eww/dock/icons/prismlauncher.png');" :onclick "scripts/open-apps 'prismlauncher' >/dev/null")
+)))

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+rofi_theme=~/.config/rofi/minimenu.rasi
+
+monitors_num=$(mons | head -n1 | awk '{print $2}')
+
+if [[ "$monitors_num" != "2" ]]; then
+  rofi -theme ~/.config/rofi/minimenu.rasi -e "Connect 1 additional display"
+else
+  mode=$(printf "Primary\nSecondary\nDuplicate\nMirror\nSide" | rofi -no-fixed-num-lines -theme $rofi_theme -dmenu -p "Select display mode")
+
+  if [[ "$mode" != ""  ]]; then
+    case "$mode" in
+      "Primary")
+        mons -o;;
+      "Secondary")
+        mons -s;;
+      "Duplicate")
+        mons -d;;
+      "Mirror")
+        mons -m;;
+      "Side")
+        side=$(printf "top\nleft\nright\nbottom" | rofi -no-fixed-num-lines -theme $rofi_theme -dmenu -p "Select side")
+        if [[ "$side" != "" ]]; then
+          mons -e $side
+        fi;;
+      *);;
+    esac
+  fi
+fi

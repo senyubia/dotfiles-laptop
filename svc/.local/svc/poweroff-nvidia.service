@@ -1,0 +1,9 @@
+[Unit]
+After=systemd-suspend.service systemd-hybrid-sleep.service systemd-hibernate.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/poweroff-nvidia
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target

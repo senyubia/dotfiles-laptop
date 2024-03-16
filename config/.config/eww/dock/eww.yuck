@@ -1,0 +1,8 @@
+(include "./apps.yuck")
+
+(defwindow apps
+	:windowtype "normal"
+	:wm-ignore true
+	:geometry (geometry :anchor "bottom center")
+	(apps)
+)

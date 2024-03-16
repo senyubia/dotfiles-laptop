@@ -1,0 +1,213 @@
+#!/usr/bin/python
+
+import os
+import subprocess
+import glob
+
+
+DOCK_LOCATION = f'{os.getenv("HOME")}/.config/eww/dock'
+DOCK_APPS_LOCATION = f'{DOCK_LOCATION}/apps.yuck'
+DOCK_ICON_SCRIPT_LOCATION = f'{DOCK_LOCATION}/scripts/extract-app-icon'
+DOCK_ICONS_LOCATION = f'{DOCK_LOCATION}/icons'
+DOCK_ICONS_TMP_LOCATION = f'{DOCK_LOCATION}/icons/tmp'
+
+
+class App:
+    def __init__(self, app_command: str, app_icon: str) -> None:
+        self.command = app_command
+        self.icon = app_icon
+
+    def __str__(self) -> str:
+        return f'App: "{self.command}", Icon: "{self.icon}"'
+
+    def codify(self) -> str:
+        return f'(button :class "app" :style "background-image: url(\'{self.icon}\');" :onclick "scripts/open-apps \'{self.command}\' >/dev/null")'
+
+
+class AppCoded(App):
+    def __init__(self, app_string: str) -> None:
+        variables_dirty = app_string.split('"')[3::2]
+        variables_clean = [ var.split('\'')[1] for var in variables_dirty ]
+
+        super(AppCoded, self).__init__(variables_clean[1], variables_clean[0])
+
+
+class AppDock:
+    def __init__(self, apps: list[App]) -> None:
+        self.apps = apps
+    
+    def codify(self) -> str:
+        definition_start = '(defwidget apps []'
+        dock_container = '(box :class "dock"'
+        app_box = '(box :class "appbox"'
+        definition_end = ')))'
+
+        return '\n'.join([ definition_start, dock_container, app_box, *[ app.codify() for app in self.apps ], definition_end ])
+
+
+def add_app(apps: list[App]) -> None:
+    cmd = input('Enter command.\n=> ')
+    ico = _get_icon('Enter icon location.\n=> ')
+
+    apps.append(App(cmd, ico))
+
+def edit_app(apps: list[App]) -> None:
+    enumerated_apps = [ f'{app[0]}) {app[1]}' for app in enumerate(apps, 1) ]
+    
+    print('Apps:')
+    print('\n'.join(enumerated_apps))
+    selected = _select_app(apps, 'Select app to edit.\n=> ')
+
+    print(f'Enter command [default="{apps[selected].command}"].')
+    cmd = input('=> ')
+
+    ico = _get_icon(f'Enter icon location [default="{apps[selected].icon}"].')
+
+    if cmd != '':
+        apps[selected].command = cmd
+    
+    if ico != '':
+        apps[selected].icon = ico
+
+def delete_app(apps: list[App]) -> None:
+    enumerated_apps = [ f'{app[0]}) {app[1]}' for app in enumerate(apps, 1) ]
+    
+    print('Apps:')
+    print('\n'.join(enumerated_apps))
+    selected = _select_app(apps, 'Select app to delete.\n=> ')
+
+    apps.pop(selected)
+
+def move_app(apps: list[App]) -> None:
+    enumerated_apps = [ f'{app[0]}) {app[1]}' for app in enumerate(apps, 1) ]
+    
+    print('Apps:')
+    print('\n'.join(enumerated_apps))
+    selected = _select_app(apps, 'Select app to move.\n=> ')
+    print(selected)
+
+    print(
+        'Where should the app be moved? Enter position relative to other app.\n' +
+        'Available positions: < - to the left, = - swap places, > - to the right.\n' +
+        'Position and the other app should be space separated.\n' +
+        'Example: put to the right of app 4 -> "> 4"'
+    )
+
+    while True:
+        try:
+            pos, other = input('=> ').split(' ')
+            other = int(other) - 1
+            
+            if pos not in '>=<':
+                print('Wrong syntax.')
+            elif other == selected:
+                print('The other app must be different from the selected app.')
+            else:
+                break
+        
+        except Exception:
+            print('Wrong syntax.')
+    
+    if pos == '<':
+        el = apps[selected]
+
+        if other < selected:
+            apps.pop(selected)
+            apps.insert(other, el)
+        else:
+            apps.pop(selected)
+            apps.insert(other - 1, el)
+    
+    elif pos == '>':
+        el = apps[selected]
+
+        if other < selected:
+            apps.pop(selected)
+            apps.insert(other + 1, el)
+        else:
+            apps.pop(selected)
+            apps.insert(other, el)
+
+    else:
+        apps[selected], apps[other] = apps[other], apps[selected]
+
+def _select_app(apps: list[App], input_text: str) -> int:
+    while True:
+        try:
+            selected = int(input(input_text)) - 1
+
+            if selected >= len(apps) or selected < 0:
+                print('Wrong selection.')
+            else:
+                break
+
+        except Exception:
+            print('Wrong selection.')
+    
+    return selected
+
+def _get_icon(prompt: str) -> str:
+    while True:
+        op = input('Do you want to extract an icon from a window? [Y/N]\n=> ').lower()
+
+        if op not in 'yn':
+            print('Wrong option.')
+        else:
+            break
+    
+    if op == 'y':
+        ico = _extract_icon()
+    else:
+        ico = input(prompt)
+    
+    return ico
+
+def _extract_icon() -> str:
+    print('Click the window you want to extract the icon from.')
+    subprocess.run([DOCK_ICON_SCRIPT_LOCATION, f'{DOCK_ICONS_TMP_LOCATION}/tmp'])
+
+    icons = glob.glob(f'{DOCK_ICONS_TMP_LOCATION}/*')
+    if len(icons) == 0:
+        print('The icon could not be extracted from the window. Get the icon on your own and run this script again.')
+        exit(1)
+    
+    icons_res_sorted = [ int(icon.split('-')[1].split('.')[0]) for icon in icons ]
+    icons_res_sorted.sort()
+
+    highest_res_icon = f'{DOCK_ICONS_TMP_LOCATION}/tmp-{icons_res_sorted[-1]}.png'
+    icon_name = input('Enter icon name.\n=> ')
+
+    os.rename(highest_res_icon, f'{DOCK_ICONS_LOCATION}/{icon_name}.png')
+    [ os.unlink(f) for f in icons if os.path.isfile(f) ]
+
+    return f'{DOCK_ICONS_LOCATION}/{icon_name}.png'
+
+
+if __name__=='__main__':
+    with open(DOCK_APPS_LOCATION, 'r') as f:
+        content = [ line[:-1] for line in f.readlines() ]
+
+    apps = [ AppCoded(app_line) for app_line in content if ':class "app"' in app_line ]
+
+    while True:
+        op = input('Select operation: [A]dd, [E]dit, [M]ove, [D]elete.\n=> ').lower()
+
+        if op not in 'aedm':
+            print('Wrong option.')
+        else:
+            break
+    
+    print()
+
+    decision = {
+        'a': add_app,
+        'e': edit_app,
+        'd': delete_app,
+        'm': move_app
+    }
+    decision[op](apps)
+
+    with open(DOCK_APPS_LOCATION, 'w') as f:
+        f.write(AppDock(apps).codify())
+    
+    print('Reload WM for autohide to work.')

@@ -1,0 +1,244 @@
+[
+    {
+        "group_name": "audio",
+        "packages": [
+            {"name": "gst-plugin-pipewire", "comment": "Pipewire plugin for GStreamer"},
+            {"name": "lib32-openal", "comment": "32bit 3d audio library"},
+            {"name": "lib32-pipewire", "comment": "32bit audio library"},
+            {"name": "libpulse", "comment": "Client library for PulseAudio"},
+            {"name": "pavucontrol", "comment": "Audio management app"},
+            {"name": "pipewire", "comment": "Audio source"},
+            {"name": "pipewire-alsa", "comment": "Pipewire configuration for ALSA"},
+            {"name": "pipewire-jack", "comment": "Pipewire configuration for JACK"},
+            {"name": "pipewire-pulse", "comment": "Pipewire configuration for PulseAudio"},
+            {"name": "wireplumber", "comment": "Pipewire session and policy management tool"}
+        ]
+    },
+    {
+        "group_name": "bluetooth",
+        "packages": [
+            {"name": "blueman", "comment": "Bluetooth manager app"},
+            {"name": "bluez", "comment": "Bluetooth protocol stack"},
+            {"name": "bluez-utils", "comment": "Bluetooth utilities"}
+        ]
+    },
+    {
+        "group_name": "desktop",
+        "packages": [
+            {"name": "fbterm", "comment": "Frame buffer terminal emulator"},
+            {"name": "i3-wm", "comment": "i3 window manager"},
+            {"name": "sway", "comment": "Sway wayland DE"},
+            {"name": "tmux", "comment": "Terminal multiplexer"},
+            {"name": "xorg-server", "comment": "X server"},
+            {"name": "xorg-xinit", "comment": "Starts X server"},
+            {"name": "xorg-xwayland", "comment": "Run X applications under wayland"}
+        ]
+    },
+    {
+        "group_name": "devel",
+        "packages": [
+            {"name": "base-devel", "comment": "Tools to build packages"},
+            {"name": "dialog", "comment": "Display dialog menu in console"},
+            {"name": "docker", "comment": "Containers"},
+            {"name": "dotnet-runtime", "comment": "Run .NET"},
+            {"name": "dotnet-sdk", "comment": "Compile .NET"},
+            {"name": "ghcup-hs-bin", "comment": "Haskell toolchain manager"},
+            {"name": "git", "comment": "Version control system"},
+            {"name": "nodejs", "comment": "Node.js runtime"},
+            {"name": "npm", "comment": "Node.js Package Manager"},
+            {"name": "pyenv", "comment": "Python version manager"},
+            {"name": "pyenv-virtualenv", "comment": "Virtualenv extension for pyenv"},
+            {"name": "python", "comment": "Python interpreter"},
+            {"name": "python-pip", "comment": "Python package manager"},
+            {"name": "rust", "comment": "Rust compiler"}
+        ]
+    },
+    {
+        "group_name": "drivers",
+        "packages": [
+            {"name": "intel-ucode", "comment": "Intel microcode"},
+            {"name": "lib32-nvidia-utils", "comment": "32bit nvidia tools"},
+            {"name": "lib32-vulkan-intel", "comment": "32bit vulkan driver for intel"},
+            {"name": "nvidia", "comment": "Nvidia drivers"},
+            {"name": "nvidia-settings", "comment": "Nvidia configuration tools"},
+            {"name": "nvidia-utils", "comment": "Nvidia tools"},
+            {"name": "optimus-manager", "comment": "iGPU+dGPU management tool"},
+            {"name": "optimus-manager-qt", "comment": "Optimus Manager app"},
+            {"name": "vulkan-intel", "comment": "Intel drivers for Vulkan"},
+            {"name": "vulkan-tools", "comment": "Vulkan utilities"}
+        ]
+    },
+    {
+        "group_name": "filesystem",
+        "packages": [
+            {"name": "gvfs", "comment": "Virtual filesystem"},
+            {"name": "gvfs-mtp", "comment": "Filesystem for mobiles"},
+            {"name": "hdf5", "comment": "File format for storing scientific data"},
+            {"name": "jmtpfs", "comment": "Accessing filesystem for mobiles"}
+        ]
+    },
+    {
+        "group_name": "fonts",
+        "packages": [
+            {"name": "awesome-terminal-fonts", "comment": "Awesome fonts"},
+            {"name": "fonts-tlwg", "comment": "Thai fonts"},
+            {"name": "lib32-fontconfig", "comment": "32bit lib for fonts"},
+            {"name": "noto-fonts-cjk", "comment": "CJK fonts"},
+            {"name": "noto-fonts-emoji", "comment": "Emoji fonts"},
+            {"name": "powerline-fonts", "comment": "Patched fonts for powerline"},
+            {"name": "ttf-dejavu", "comment": "Dejavu fonts"},
+            {"name": "ttf-font-awesome", "comment": "Awesome fonts"},
+            {"name": "ttf-liberation", "comment": "Arial, Times New Roman and Courier New compatible fonts"},
+            {"name": "ttf-meslo-nerd-font-powerlevel10k", "comment": "Meslo Nerd font patched for powerline10k"},
+            {"name": "wqy-zenhei", "comment": "Chinese outline font"}
+        ]
+    },
+    {
+        "group_name": "icons",
+        "packages": [
+            {"name": "arc-icon-theme", "comment": "Arc icons"}
+        ]
+    },
+    {
+        "group_name": "input",
+        "packages": [
+            {"name": "fcitx5", "comment": "Input method framework"},
+            {"name": "fcitx5-configtool", "comment": "Fcitx5 config tool"},
+            {"name": "fcitx5-gtk", "comment": "Fcitx5 gtk module"},
+            {"name": "fcitx5-mozc", "comment": "Fcitx5 module for Japanese input"},
+            {"name": "fcitx5-qt", "comment": "Fcitx5 qt module"},
+            {"name": "xf86-input-wacom", "comment": "Drivers for graphics tablets"}
+        ]
+    },
+    {
+        "group_name": "laptop",
+        "packages": [
+            {"name": "acpi", "comment": "View battery and thermal information"},
+            {"name": "acpi_call", "comment": "Enables ACPI calls, such as to GPU or battery"},
+            {"name": "tlp", "comment": "Power management tool"}
+        ]
+    },
+    {
+        "group_name": "networking",
+        "packages": [
+            {"name": "ifplugd", "comment": "Brings up/down network interfaces upon ethernet cable insertion/removal"},
+            {"name": "inetutils", "comment": "Networking programs"},
+            {"name": "network-manager-applet", "comment": "NetworkManager applet"},
+            {"name": "networkmanager", "comment": "Network connection manager"},
+            {"name": "openbsd-netcat", "comment": "OpenBSD version of networking tools"},
+            {"name": "openssh", "comment": "SSH implementation"}
+        ]
+    },
+    {
+        "group_name": "security",
+        "packages": [
+            {"name": "betterlockscreen", "comment": "Lock screen"},
+            {"name": "firejail", "comment": "Sandboxing tool"},
+            {"name": "gufw", "comment": "Firewall app"},
+            {"name": "lxsession", "comment": "Polkit auth agent"},
+            {"name": "swaylock", "comment": "Lockscreen for sway"}
+        ]
+    },
+    {
+        "group_name": "software",
+        "packages": [
+            {"name": "anki-bin", "comment": "Flashcards app"},
+            {"name": "arandr", "comment": "Screen layout app"},
+            {"name": "bashtop", "comment": "Console task manager"},
+            {"name": "brightnessctl", "comment": "Change screen brightness"},
+            {"name": "calc", "comment": "Console calculator"},
+            {"name": "cmatrix", "comment": "Matrix-like console screen"},
+            {"name": "fastfetch", "comment": "System information tool"},
+            {"name": "fbv", "comment": "Frame buffer image viewer"},
+            {"name": "fdupes", "comment": "Detect duplicate files"},
+            {"name": "feh", "comment": "Image viewer"},
+            {"name": "firefox", "comment": "Web browser"},
+            {"name": "flameshot", "comment": "Screenshot tool"},
+            {"name": "gimp", "comment": "Image manipulation program"},
+            {"name": "htop", "comment": "Console task manager"},
+            {"name": "i7z", "comment": "CPU reporting tool"},
+            {"name": "jq", "comment": "JSON processor"},
+            {"name": "keepassxc", "comment": "Password manager"},
+            {"name": "kolourpaint", "comment": "Image editor"},
+            {"name": "krita", "comment": "Image editor"},
+            {"name": "leafpad", "comment": "Notepad"},
+            {"name": "lib32-mpg123", "comment": "32bit mpeg audio player"},
+            {"name": "libreoffice-still", "comment": "Office suite"},
+            {"name": "lutris", "comment": "Gaming"},
+            {"name": "mgba-qt", "comment": "GBA emulator"},
+            {"name": "mlocate", "comment": "File location tool"},
+            {"name": "mons", "comment": "Monitor management tool"},
+            {"name": "mpv", "comment": "Video player"},
+            {"name": "nano", "comment": "Text editor"},
+            {"name": "obs-studio", "comment": "Video recording software"},
+            {"name": "pcmanfm", "comment": "File explorer"},
+            {"name": "prismlauncher-qt5-bin", "comment": "Minecraft launcher"},
+            {"name": "reflector", "comment": "Pacman mirror utility tool"},
+            {"name": "steam", "comment": "Gaming"},
+            {"name": "unrar", "comment": "Unraring tool"},
+            {"name": "unzip", "comment": "Unzipping tool"},
+            {"name": "virtualbox", "comment": "Virtual machine managing tool"},
+            {"name": "visual-studio-code-bin", "comment": "Code editor"},
+            {"name": "vlc", "comment": "Media player"},
+            {"name": "wine", "comment": "Windows compatibility tool"},
+            {"name": "xdo", "comment": "Perform actions on windows"},
+            {"name": "xorg-xdpyinfo", "comment": "Information utility for X"},
+            {"name": "xorg-xev", "comment": "Print contents of X events"},
+            {"name": "xorg-xrandr", "comment": "Screen layout utility tool"},
+            {"name": "xreader", "comment": "PDF viewer"},
+            {"name": "xsel", "comment": "Get and set content of X selection"},
+            {"name": "zip", "comment": "Zip tool"}
+        ]
+    },
+    {
+        "group_name": "system",
+        "packages": [
+            {"name": "arch-wiki-docs", "comment": "Arch wiki offline pages"},
+            {"name": "arch-wiki-lite", "comment": "Arch wiki HTML-less, console searchable"},
+            {"name": "base", "comment": "System base"},
+            {"name": "efibootmgr", "comment": "Manages UEFI boot entries"},
+            {"name": "linux", "comment": "Kernel"},
+            {"name": "linux-firmware", "comment": "Kernel firmware"},
+            {"name": "linux-headers", "comment": "Kernel headers"},
+            {"name": "man-db", "comment": "Read man pages"},
+            {"name": "pacman-contrib", "comment": "Scripts and tools for pacman"},
+            {"name": "pkgfile", "comment": "Search files from packages in official repositories"},
+            {"name": "yay", "comment": "Package manager"},
+            {"name": "zram-generator", "comment": "Handles zram devices"}
+        ]
+    },
+    {
+        "group_name": "terminal",
+        "packages": [
+            {"name": "alacritty", "comment": "Terminal emulator"},
+            {"name": "zsh", "comment": "Z shell"},
+            {"name": "zsh-autosuggestions", "comment": "Fish-like autosuggestions for zsh"},
+            {"name": "zsh-completions", "comment": "Completion definitions for zsh"},
+            {"name": "zsh-syntax-highlighting", "comment": "Highlighting for zsh"},
+            {"name": "zsh-theme-powerlevel10k-git", "comment": "Theme for zsh"}
+        ]
+    },
+    {
+        "group_name": "theming",
+        "packages": [
+            {"name": "arc-gtk-theme", "comment": "Arc theme"},
+            {"name": "azote", "comment": "Wallpaper manager for wayland"},
+            {"name": "dunst", "comment": "Notifications"},
+            {"name": "eww", "comment": "Desktop widgets"},
+            {"name": "hideit.sh-git", "comment": "Hides a window"},
+            {"name": "lxappearance", "comment": "Theming app"},
+            {"name": "nitrogen", "comment": "Wallpaper manager"},
+            {"name": "picom", "comment": "Compositor"},
+            {"name": "polybar", "comment": "Status bar"},
+            {"name": "qt5-styleplugins", "comment": "Style plugins for QT5"},
+            {"name": "qt5ct", "comment": "QT5 config tool"},
+            {"name": "qt6-wayland", "comment": "QT6 wayland support"},
+            {"name": "qt6ct", "comment": "QT6 config tool"},
+            {"name": "qt6gtk2", "comment": "QT6 integration with GTK2"},
+            {"name": "rofi", "comment": "Programmable menus"},
+            {"name": "stow", "comment": "Dotfile management tool"},
+            {"name": "swaybg", "comment": "Wallpaper for wayland"},
+            {"name": "waybar", "comment": "Status bar for wayland"}
+        ]
+    }
+]

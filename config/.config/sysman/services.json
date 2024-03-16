@@ -1,0 +1,22 @@
+{
+    "system_services": [
+        {"name": "ufw", "comment": "Firewall"},
+        {"name": "bluetooth", "comment": "Bluetooth stack"},
+        {"name": "NetworkManager", "comment": "Network access"},
+        {"name": "tlp", "comment": "Laptop power saving"}
+    ],
+    "local_system_services": [
+        {
+            "name": "poweroff-nvidia",
+            "comment": "Ensures Nvidia GPU is turned off after suspension/hibernation",
+            "service_file": "~/.local/svc/poweroff-nvidia.service",
+            "service_script_file": "~/.local/svc/src/poweroff-nvidia"
+        },
+        {
+            "name": "screenlock@$USER",
+            "comment": "Locks the screen, does nothing in tty6",
+            "service_file": "~/.local/svc/screenlock@.service",
+            "service_script_file": ""
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+IFS=' ' read -ra arr <<< "$1"
+
+procs=$(pgrep -f ${arr[0]} | wc -l)
+
+if [[ $procs -gt 3 ]]; then
+    for win_id in $(xdotool search --name ${arr[0]})
+    do
+        xdotool windowactivate $win_id 2>&1 | (! grep failed) && break
+    done
+
+else
+    eval "$1 >/dev/null 2>&1 &"
+fi

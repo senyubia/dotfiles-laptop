@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+[[ ! -e /sys/bus/pci/devices/0000:03:00.0 ]] && exit 0
+
+gpu_mode=$(optimus-manager --print-mode | grep -Po '(?<=:\s)(nvidia|integrated)')
+
+if [[ "$gpu_mode" == "integrated" ]] || [[ -f /tmp/usingTTY ]]; then
+	echo 1 >> /sys/bus/pci/devices/0000:03:00.0/remove
+fi

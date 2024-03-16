@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+dock_cname='Eww - apps'
+dock_id=$(xdo id -m -a "$dock_cname")
+
+i3-msg -t subscribe -m '[ "window" ]' |
+jq -r --unbuffered '"\(.change) \(.container.fullscreen_mode)" | select(contains("fullscreen_mode") or contains("close 1"))' |
+while read msg
+do
+    case $msg in
+        'fullscreen_mode 1')                 xdotool windowunmap $dock_id ;;
+        'fullscreen_mode 0' | 'close 1')     xdotool windowmap $dock_id   ;;
+        *)                                   echo 'unknown option'        ;;
+    esac
+done
