@@ -187,6 +187,7 @@
             {"name": "xorg-xrandr", "comment": "Screen layout utility tool"},
             {"name": "xreader", "comment": "PDF viewer"},
             {"name": "xsel", "comment": "Get and set content of X selection"},
+            {"name": "yt-dlp", "comment": "Download youtube videos"},
             {"name": "zip", "comment": "Zip tool"}
         ]
     },
