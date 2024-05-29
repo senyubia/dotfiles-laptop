@@ -167,7 +167,6 @@ exec --no-startup-id dunst
 exec --no-startup-id ((mons --primary eDP-1 || mons --primary eDP-1-1) && mons -o && nitrogen --restore)
 exec --no-startup-id picom
 exec --no-startup-id blueman-applet
-exec --no-startup-id optimus-manager-qt
 exec --no-startup-id lxpolkit
 exec --no-startup-id flameshot
 exec --no-startup-id fcitx5 -d

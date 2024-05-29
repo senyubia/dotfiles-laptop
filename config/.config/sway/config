@@ -165,6 +165,5 @@ assign [class="Lutris"] workspace number $ws6
 exec --no-startup-id nm-applet --indicator
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
-exec --no-startup-id optimus-manager-qt
 exec --no-startup-id flameshot
 exec --no-startup-id fcitx5 -d

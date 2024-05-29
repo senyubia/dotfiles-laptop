@@ -6,7 +6,7 @@
         {"command": "sudo pacman -Su", "special_env": ""},
         {"command": "build-yay", "special_env": ""},
         {"command": "yay -Su", "special_env": ""},
-        {"command": "yay -S --answerclean All --rebuildtree qt5-styleplugins qt6gtk2", "special_env": "cache_rebuild"},
+        {"command": "yay -S --answerclean All --rebuildtree qt5-styleplugins qt6gtk2 optimus-manager", "special_env": "cache_rebuild"},
         {"command": "sudo pacman -Qdtq | sudo pacman -Rns -", "special_env": ""}
     ],
     "noconfirm": [
@@ -16,7 +16,7 @@
         {"command": "sudo pacman -Su --noconfirm", "special_env": ""},
         {"command": "build-yay", "special_env": ""},
         {"command": "yay -Su --noconfirm", "special_env": ""},
-        {"command": "yay -S --answerclean All --rebuildtree --noconfirm qt5-styleplugins qt6gtk2", "special_env": "cache_rebuild"},
+        {"command": "yay -S --answerclean All --rebuildtree --noconfirm qt5-styleplugins qt6gtk2 optimus-manager", "special_env": "cache_rebuild"},
         {"command": "sudo pacman -Qdtq | sudo pacman -Rns --noconfirm -", "special_env": ""}
     ]
 }
