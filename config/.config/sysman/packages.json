@@ -27,8 +27,10 @@
         "packages": [
             {"name": "fbterm", "comment": "Frame buffer terminal emulator"},
             {"name": "i3-wm", "comment": "i3 window manager"},
-            {"name": "sway", "comment": "Sway wayland DE"},
+            {"name": "hyprland", "comment": "hyprland wayland DE"},
             {"name": "tmux", "comment": "Terminal multiplexer"},
+            {"name": "xdg-desktop-portal-hyprland", "comment": "Desktop portal for wayland, hyprland implementation"},
+            {"name": "xdg-desktop-portal-gtk", "comment": "Desktop portal for wayland, gtk implementation"},
             {"name": "xorg-server", "comment": "X server"},
             {"name": "xorg-xinit", "comment": "Starts X server"},
             {"name": "xorg-xwayland", "comment": "Run X applications under wayland"}
@@ -63,7 +65,6 @@
             {"name": "nvidia-settings", "comment": "Nvidia configuration tools"},
             {"name": "nvidia-utils", "comment": "Nvidia tools"},
             {"name": "optimus-manager", "comment": "iGPU+dGPU management tool"},
-            {"name": "optimus-manager-qt", "comment": "Optimus Manager app"},
             {"name": "vulkan-intel", "comment": "Intel drivers for Vulkan"},
             {"name": "vulkan-tools", "comment": "Vulkan utilities"}
         ]
@@ -232,6 +233,7 @@
             {"name": "picom", "comment": "Compositor"},
             {"name": "polybar", "comment": "Status bar"},
             {"name": "qt5-styleplugins", "comment": "Style plugins for QT5"},
+            {"name": "qt5-wayland", "comment": "QT5 wayland support"},
             {"name": "qt5ct", "comment": "QT5 config tool"},
             {"name": "qt6-wayland", "comment": "QT6 wayland support"},
             {"name": "qt6ct", "comment": "QT6 config tool"},
