@@ -64,7 +64,6 @@
             {"name": "nvidia", "comment": "Nvidia drivers"},
             {"name": "nvidia-settings", "comment": "Nvidia configuration tools"},
             {"name": "nvidia-utils", "comment": "Nvidia tools"},
-            {"name": "optimus-manager", "comment": "iGPU+dGPU management tool"},
             {"name": "vulkan-intel", "comment": "Intel drivers for Vulkan"},
             {"name": "vulkan-tools", "comment": "Vulkan utilities"}
         ]
