@@ -114,8 +114,7 @@
         "group_name": "laptop",
         "packages": [
             {"name": "acpi", "comment": "View battery and thermal information"},
-            {"name": "acpi_call", "comment": "Enables ACPI calls, such as to GPU or battery"},
-            {"name": "tlp", "comment": "Power management tool"}
+            {"name": "acpi_call", "comment": "Enables ACPI calls, such as to GPU or battery"}
         ]
     },
     {
@@ -133,10 +132,8 @@
         "group_name": "security",
         "packages": [
             {"name": "betterlockscreen", "comment": "Lock screen"},
-            {"name": "firejail", "comment": "Sandboxing tool"},
             {"name": "gufw", "comment": "Firewall app"},
-            {"name": "lxsession", "comment": "Polkit auth agent"},
-            {"name": "swaylock", "comment": "Lockscreen for sway"}
+            {"name": "lxsession", "comment": "Polkit auth agent"}
         ]
     },
     {

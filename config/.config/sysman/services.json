@@ -2,8 +2,7 @@
     "system_services": [
         {"name": "ufw", "comment": "Firewall"},
         {"name": "bluetooth", "comment": "Bluetooth stack"},
-        {"name": "NetworkManager", "comment": "Network access"},
-        {"name": "tlp", "comment": "Laptop power saving"}
+        {"name": "NetworkManager", "comment": "Network access"}
     ],
     "local_system_services": [
         {

@@ -8,6 +8,7 @@ ConditionPathExists=!/tmp/usingTTY
 User=%I
 Type=simple
 Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 ExecStart=/usr/bin/betterlockscreen --lock
 TimeoutSec=infinity
 ExecStartPost=/usr/bin/sleep 1

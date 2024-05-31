@@ -42,12 +42,12 @@ sudo usermod -a -G video "$USER"
 [[ -f "$HOME/.bashrc" ]] && rm "$HOME/.bashrc"
 [[ -f "$HOME/.bash_profile" ]] && rm "$HOME/.bash_profile"
 
-(find system -type f | xargs sudo chown root:root) && sudo stow -t / system
-stow config
+(find system -type f | xargs sudo chown root:root) && sudo stow --no-folding -t / system
+stow --no-folding config
 stow --no-folding home
-stow src
-stow svc
-stow themes
+stow --no-folding src
+stow --no-folding svc
+stow --no-folding themes
 stow --no-folding fonts
 
 [ -d "$HOME/.local" ] || mkdir "$HOME/.local"
