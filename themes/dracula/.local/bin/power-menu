@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rofi -show p -modi p:~/.config/rofi/scripts/power-modi -theme ~/.config/rofi/minimenu.rasi -no-fixed-num-lines

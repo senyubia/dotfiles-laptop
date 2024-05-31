@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+dir_polybar="$HOME/.config/polybar"
+dir_dock="$HOME/.config/eww/dock"
+
+# Launch Polybar
+
+# terminate polybar
+killall -q polybar
+
+# wait until processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+# launch the bar
+polybar -q mainbar -c "$dir_polybar/config.ini" &
+
+TRAY_ID="/tmp/polybar-tray-id"
+
+polybar -q tray -c "$dir_polybar/config.ini" &
+echo $! > $TRAY_ID
+(xdo id -m -N Polybar && polybar-msg -p $! cmd hide) &
+
+# Launch Eww dock
+
+# Terminate eww
+killall -q eww
+
+# Wait until processes have been shut down
+while pgrep -u $UID -x eww >/dev/null; do sleep 1; done
+
+# Run eww daemon if not running already
+if [[ ! `pidof eww` ]]; then
+        eww daemon
+        sleep 3
+fi
+
+# Open widgets
+eww --config "$dir_dock" open-many apps
+
+# Monitor dock
+"$dir_dock"/scripts/monitor-dock &
+
+# Autohide dock
+dock_id=$(xdo id -m -a "Eww - apps")
+xdo show $dock_id
+hideIt.sh --id $dock_id --hover -d bottom -s 3 -p 10 -i 10 >/dev/null 2>&1 &

@@ -48,20 +48,26 @@ sudo usermod -a -G video "$USER"
 [[ -f "$HOME/.bash_profile" ]] && rm "$HOME/.bash_profile"
 
 (find system -type f | xargs sudo chown root:root) && sudo stow --no-folding -t / system
+
 stow --no-folding config
 stow --no-folding home
-stow --no-folding src
-stow --no-folding svc
-stow --no-folding themes
+stow src
+stow svc
 stow --no-folding fonts
+
+stow --no-folding -d themes -t "$HOME" dracula
+stow --no-folding -d themes-tty -t "$HOME" default
 
 [ -d "$HOME/.local" ] || mkdir "$HOME/.local"
 [ -d "$HOME/.local/bin" ] || mkdir "$HOME/.local/bin"
 find ./src/.local/src -maxdepth 1 -type f -printf "%P\n" | while read file; do ln -s "$HOME/.local/src/$file" "$HOME/.local/bin/$file"; done
 
-# CREATE MISSING XDG FOLDERS
+# POPULATE HOME
 [[ ! -d "$HOME/docs" ]] && mkdir "$HOME/docs"
 [[ ! -d "$HOME/downloads" ]] && mkdir "$HOME/downloads"
 [[ ! -d "$HOME/music" ]] && mkdir "$HOME/music"
 [[ ! -d "$HOME/pictures" ]] && mkdir "$HOME/pictures"
 [[ ! -d "$HOME/movies" ]] && mkdir "$HOME/movies"
+
+ln -s "$HOME/.config" "config"
+ln -s "$HOME/.local" "local"

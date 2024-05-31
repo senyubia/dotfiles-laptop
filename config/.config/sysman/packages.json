@@ -201,6 +201,7 @@
             {"name": "man-db", "comment": "Read man pages"},
             {"name": "pacman-contrib", "comment": "Scripts and tools for pacman"},
             {"name": "pkgfile", "comment": "Search files from packages in official repositories"},
+            {"name": "stow", "comment": "Dotfile management tool"},
             {"name": "yay", "comment": "Package manager"},
             {"name": "zram-generator", "comment": "Handles zram devices"}
         ]
@@ -220,7 +221,6 @@
         "group_name": "theming",
         "packages": [
             {"name": "arc-gtk-theme", "comment": "Arc theme"},
-            {"name": "azote", "comment": "Wallpaper manager for wayland"},
             {"name": "dunst", "comment": "Notifications"},
             {"name": "eww", "comment": "Desktop widgets"},
             {"name": "hideit.sh-git", "comment": "Hides a window"},
@@ -234,10 +234,7 @@
             {"name": "qt6-wayland", "comment": "QT6 wayland support"},
             {"name": "qt6ct", "comment": "QT6 config tool"},
             {"name": "qt6gtk2", "comment": "QT6 integration with GTK2"},
-            {"name": "rofi", "comment": "Programmable menus"},
-            {"name": "stow", "comment": "Dotfile management tool"},
-            {"name": "swaybg", "comment": "Wallpaper for wayland"},
-            {"name": "waybar", "comment": "Status bar for wayland"}
+            {"name": "rofi", "comment": "Programmable menus"}
         ]
     }
 ]

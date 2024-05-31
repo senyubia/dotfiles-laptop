@@ -4,27 +4,23 @@
 
 set $mod Mod4
 
-font pango:Iosevka Nerd Font 8
-
 for_window [class="^.*"] border pixel 0
 gaps inner 5
 gaps outer 5
-#smart_gaps on
 
-exec_always --no-startup-id launch-polybar
-exec_always --no-startup-id launch-dock
+exec_always --no-startup-id launch-ui
 
 ########################################
 # KEYS
 ########################################
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id dunst-volume set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id dunst-volume set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id dunst-volume set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id change-volume set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id change-volume set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id change-volume set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-bindsym XF86MonBrightnessDown exec --no-startup-id dunst-brightness s 5%-
-bindsym XF86MonBrightnessUp exec --no-startup-id dunst-brightness s 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id change-brightness s 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id change-brightness s 5%+
 
 ########################################
 # KEYBINDINGS
@@ -32,10 +28,9 @@ bindsym XF86MonBrightnessUp exec --no-startup-id dunst-brightness s 5%+
 
 bindsym $mod+Return exec --no-startup-id alacritty
 bindsym $mod+q kill
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id application-menu
 bindsym $mod+l exec --no-startup-id betterlockscreen -l
-bindsym $mod+p exec --no-startup-id rofi-presentation-menu
-bindsym $mod+o exec --no-startup-id change-theme
+bindsym $mod+p exec --no-startup-id presentation-menu
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -60,7 +55,7 @@ bindsym $mod+a focus parent
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec --no-startup-id rofi -show p -modi p:rofi-power-menu -theme ~/.config/rofi/minimenu.rasi -no-fixed-num-lines
+bindsym $mod+Shift+e exec --no-startup-id power-menu
 
 bindsym Print exec --no-startup-id flameshot gui
 
