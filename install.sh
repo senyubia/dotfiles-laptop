@@ -19,6 +19,11 @@ read input
 
 [[ ! "$input" == "ok" ]] && exit 1
 
+if ! [ -x "$(command -v sysman)" ]; then
+  echo "sysman not installed, aborting"
+  exit 1
+fi
+
 # SYNC SYSTEM
 sudo pacman -Syyu
 sudo pacman -S --needed python git
