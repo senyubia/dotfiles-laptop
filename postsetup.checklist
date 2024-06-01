@@ -1,5 +1,6 @@
 ############ POSTSETUP CHECKLIST ############
 1) Edit sudoers file to make prime-switch run without requiring password -> run "sudo visudo", at the END OF THE FILE add line "<username> ALL=(ALL) NOPASSWD: /usr/bin/prime-switch"; you might also want to increase sudo timeout, add line "Defaults timestamp_timeout=n" where "n" is timeout in minutes
 2) Set wallpaper to ~/pictures/wp/wallpaper.png -> use nitrogen
-3) Change bootloader settings -> in /boot/loader/loader.conf (if esp is at /boot)
-4) Change bootloader entry names -> in /boot/loader/entries
+3) Set lockscreen wallpaper -> betterlockscreen -u ~/pictures/wp/wallpaper.png
+4) Change bootloader settings -> in /boot/loader/loader.conf (if esp is at /boot)
+5) Change bootloader entry names -> in /boot/loader/entries
