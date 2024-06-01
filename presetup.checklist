@@ -3,3 +3,4 @@
 2) Connect to the Internet -> plug in the Ethernet cable, or establish wifi connection with (e.g.) NetworkManager using "nmcli device <dev> connect <SSID> --ask" (<dev> might be "wifi")
 3) Prevent makepkg creating debug packages -> in /etc/makepkg.conf change line containing OPTIONS=(... debug ...) to OPTIONS=(... !debug ...)
 4) Enable 32bit packages, colors and parallel downloads for pacman -> in /etc/pacman.conf uncomment Color and ParallelDownloads in Misc options section, uncomment [multilib] Include section
+5) Make sure this directory is called "dotfiles"

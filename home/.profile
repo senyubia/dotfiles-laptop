@@ -43,7 +43,7 @@ elif [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
         export XDG_SESSION_TYPE=x11
 	export USES_TTY=0
 	exec startx
-elif [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty5 ]]; then
+elif [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty2 ]]; then
         sudo prime-switch
 
         #  Use wayland
@@ -53,10 +53,11 @@ elif [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty5 ]]; then
                export GBM_BACKEND=nvidia-drm
                export __GLX_VENDOR_LIBRARY_NAME=nvidia
         fi
-               export XDG_SESSION_TYPE=wayland
-               export QT_QPA_PLATFORM=wayland
-               export USES_TTY=0
 
-               prime-offload
-               exec Hyprland
+         export XDG_SESSION_TYPE=wayland
+         export QT_QPA_PLATFORM=wayland
+         export USES_TTY=0
+
+         prime-offload
+         exec Hyprland
 fi

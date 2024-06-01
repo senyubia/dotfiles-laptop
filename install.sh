@@ -55,8 +55,9 @@ stow src
 stow svc
 stow --no-folding fonts
 
-stow --no-folding -d themes -t "$HOME" dracula
-stow --no-folding -d themes-tty -t "$HOME" default
+echo "Ignore warnings about missing themes"
+$HOME/.local/bin/switch-theme --system
+$HOME/.local/bin/switch-theme --tty
 
 [ -d "$HOME/.local" ] || mkdir "$HOME/.local"
 [ -d "$HOME/.local/bin" ] || mkdir "$HOME/.local/bin"
