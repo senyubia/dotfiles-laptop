@@ -14,7 +14,7 @@ THEMES_TTY_DIRECTORY = f'{os.getenv("HOME")}/dotfiles/themes-tty'
 
 def theme_switching():
     if os.path.exists(f'{CONFIG_DIR}/current_theme'):
-        with open(f'{CONFIG_DIR}/current_theme') as f:
+        with open(f'{CONFIG_DIR}/current_theme', 'r') as f:
             current_theme = f.read().strip()
     else:
         current_theme = None
@@ -40,15 +40,18 @@ def theme_switching():
 
         if choice in available_themes:
             if current_theme is not None:
-                subprocess.run(['stow', '--no-folding', '-d', THEMES_DIRECTORY, '-t', os.getenv('HOME'), current_theme])
+                subprocess.run(['stow', '--no-folding', '-d', THEMES_DIRECTORY, '-t', os.getenv('HOME'), '-D', current_theme])
             
-            subprocess.run(['stow', '--no-folding', THEMES_DIRECTORY, '-t', os.getenv('HOME'), choice])
+            subprocess.run(['stow', '--no-folding', '-d', THEMES_DIRECTORY, '-t', os.getenv('HOME'), choice])
 
             subprocess.run(['betterlockscreen', '-u', f'{os.getenv("HOME")}/pictures/wp/wallpaper.png'])
 
             # if X11
             subprocess.run(['nitrogen', '--restore'])
             subprocess.run(['i3-msg', 'restart'])
+
+            with open(f'{CONFIG_DIR}/current_theme', 'w') as f:
+                f.write(choice)
 
             print('Theme switched, relog to have it fully applied')
 
@@ -61,7 +64,7 @@ def theme_switching():
 
 def tty_theme_switching():
     if os.path.exists(f'{CONFIG_DIR}/current_tty_theme'):
-        with open(f'{CONFIG_DIR}/current_tty_theme') as f:
+        with open(f'{CONFIG_DIR}/current_tty_theme', 'r') as f:
             current_tty_theme = f.read().strip()
     else:
         current_tty_theme = None
@@ -86,9 +89,12 @@ def tty_theme_switching():
 
         if choice in available_tty_themes:
             if current_tty_theme is not None:
-                subprocess.run(['stow', '--no-folding', '-d', THEMES_TTY_DIRECTORY, '-t', os.getenv('HOME'), current_tty_theme])
+                subprocess.run(['stow', '--no-folding', '-d', THEMES_TTY_DIRECTORY, '-t', os.getenv('HOME'), '-D', current_tty_theme])
             
-            subprocess.run(['stow', '--no-folding', THEMES_TTY_DIRECTORY, '-t', os.getenv('HOME'), choice])
+            subprocess.run(['stow', '--no-folding', '-d', THEMES_TTY_DIRECTORY, '-t', os.getenv('HOME'), choice])
+
+            with open(f'{CONFIG_DIR}/current_tty_theme', 'w') as f:
+                f.write(choice)
 
             print('Theme switched, relog to have it applied')
 
