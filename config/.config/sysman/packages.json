@@ -114,7 +114,8 @@
         "group_name": "laptop",
         "packages": [
             {"name": "acpi", "comment": "View battery and thermal information"},
-            {"name": "acpi_call", "comment": "Enables ACPI calls, such as to GPU or battery"}
+            {"name": "acpi_call", "comment": "Enables ACPI calls, such as to GPU or battery"},
+            {"name": "powertop", "comment": "Show power consumption, and apply some battery optimizations"}
         ]
     },
     {

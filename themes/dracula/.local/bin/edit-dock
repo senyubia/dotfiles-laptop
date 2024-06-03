@@ -3,6 +3,7 @@
 import os
 import subprocess
 import glob
+from pathlib import Path
 
 
 DOCK_LOCATION = f'{os.getenv("HOME")}/.config/eww/dock'
@@ -163,6 +164,8 @@ def _get_icon(prompt: str) -> str:
     return ico
 
 def _extract_icon() -> str:
+    Path(DOCK_ICONS_TMP_LOCATION).mkdir(parents=True, exist_ok=True)
+
     print('Click the window you want to extract the icon from.')
     subprocess.run([DOCK_ICON_SCRIPT_LOCATION, f'{DOCK_ICONS_TMP_LOCATION}/tmp'])
 

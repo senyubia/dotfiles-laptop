@@ -12,7 +12,7 @@ alias feh='feh -.'
 
 # fbv
 fbv() {
-	/usr/bin/fbv $1
+	/usr/bin/fbv --stretch $1
 	((sleep 0.1; kill -9 $(pgrep fbv)) &)
 	/usr/bin/fbv $HOME/pictures/.clear.png
 	clear
